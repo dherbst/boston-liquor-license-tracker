@@ -1,0 +1,29 @@
+name: Get Boston Licenses
+
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash
+
+
+jobs:
+  get:
+    runs-on: ubuntu-latest
+  steps:
+
+    - name: Get the license json and put in the data folder
+      run: |
+        wget -O blt/data/boston-license.json "https://data.boston.gov/datastore/dump/aab353c1-c797-4053-a3fc-e893f5ccf547?format=json"
+
+    - name: Check in the license data
+      uses: actions/checkout@v4
+      run: |
+          # Note: the following account information will not work on GHES
+          git config user.name "github-actions[bot]"
+          git config user.email "{user.id}+{user.login}@users.noreply.github.com"
+          git add blt/data/boston-license.json
+          git commit -m "Pulled from data.boston.gov"
+          git push
