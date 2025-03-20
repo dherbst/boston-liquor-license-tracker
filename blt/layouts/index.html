@@ -13,7 +13,7 @@ These are the zipcodes some of the liquor licenses are restricted to:
 <h2>Neighbor restricted licenses</h2>
 {{ range .Site.Data.boston_license.records }}
 {{ if strings.Contains (index . 4) "Neighborhood Restricted" }}
-<p>{{ index . 1 }} {{ index . 7 }}  {{ index . 8 }} {{ index . 4 }} {{ index . 22 }}</p>
+<p>{{ index . 1 }} {{ index . 7 }}  {{ index . 8 }} {{ index . 4 }} {{ index . 22 }} </p>
 {{ end }}
 
 {{ end }}
