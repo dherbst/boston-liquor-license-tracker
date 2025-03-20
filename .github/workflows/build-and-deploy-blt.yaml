@@ -53,7 +53,7 @@ jobs:
         uses: actions/configure-pages@v5
       - name: Install Node.js dependencies in theme
         working-directory: ./blt
-        run: "cd ./themes/hugo-empty-bootstrap && [[ -f package-lock.json ]] && npm ci"
+        run: "cd ./themes/hugo-empty-bootstrap && ls && [[ -f package-lock.json ]] && npm ci"
       - name: Cache Restore
         id: cache-restore
         uses: actions/cache/restore@v4
