@@ -52,7 +52,8 @@ jobs:
         id: pages
         uses: actions/configure-pages@v5
       - name: Install Node.js dependencies in theme
-        run: "cd blt/themes/hugo-empty-bootstrap && [[ -f package-lock.json ]] && npm ci || true"
+        working-directory: ./blt
+        run: "cd ./themes/hugo-empty-bootstrap && [[ -f package-lock.json ]] && npm ci"
       - name: Cache Restore
         id: cache-restore
         uses: actions/cache/restore@v4
@@ -63,8 +64,9 @@ jobs:
           restore-keys:
             hugo-
       - name: Build with Hugo
+        working-directory: ./blt
         run: |
-          cd blt && hugo \
+          hugo \
             --gc \
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/" \
