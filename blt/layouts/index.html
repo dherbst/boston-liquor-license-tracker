@@ -1,6 +1,14 @@
 {{- define "main" -}}
 <p>There are currently {{ .Site.Data.boston_license.records | len }} licenses.</p>
 
+<h1>Restricted Zipcodes</h1>
+These are the zipcodes some of the liquor licenses are restricted to:
+
+<ul>
+  {{ range .Site.Data.restricted_zips }}
+  <li>{{ . }}</li>
+  {{ end }}
+</ul>
 
 {{ .Content }}
 
