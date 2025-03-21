@@ -1,5 +1,13 @@
 {{- define "main" -}}
+{{ $count := 0 }}
+{{ range .Site.Data.boston_license.records }}
+{{ if strings.Contains (index . 4) "Neighborhood Restricted" }}
+{{ $count = add $count 1 }}
+{{ end }}
+{{ end }}
+
 <p>There are currently {{ .Site.Data.boston_license.records | len }} licenses.</p>
+<p>{{ $count }} are "Neighborhood Restricted"</p>
 
 <h1>Restricted Zipcodes</h1>
 These are the zipcodes some of the liquor licenses are restricted to:
@@ -10,12 +18,6 @@ These are the zipcodes some of the liquor licenses are restricted to:
   {{ end }}
 </ul>
 
-{{ $count := 0 }}
-{{ range .Site.Data.boston_license.records }}
-{{ if strings.Contains (index . 4) "Neighborhood Restricted" }}
-{{ $count = add $count 1 }}
-{{ end }}
-{{ end }}
 
 <h2>Neighbor restricted licenses {{ $count }}</h2>
 {{ range .Site.Data.boston_license.records }}
