@@ -10,16 +10,20 @@ These are the zipcodes some of the liquor licenses are restricted to:
   {{ end }}
 </ul>
 
-<h2>Neighbor restricted licenses</h2>
+{{ $count := 0 }}
+{{ range .Site.Data.boston_license.records }}
+{{ if strings.Contains (index . 4) "Neighborhood Restricted" }}
+{{ $count = add $count 1 }}
+{{ end }}
+{{ end }}
+
+<h2>Neighbor restricted licenses {{ $count }}</h2>
 {{ range .Site.Data.boston_license.records }}
 {{ if strings.Contains (index . 4) "Neighborhood Restricted" }}
 <p>{{ index . 1 }} {{ index . 7 }}  {{ index . 8 }} {{ index . 4 }} {{ index . 22 }} </p>
 {{ end }}
-
 {{ end }}
 
-
 {{ .Content }}
-
 
 {{- end -}}
