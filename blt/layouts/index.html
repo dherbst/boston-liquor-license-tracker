@@ -1,4 +1,6 @@
 {{- define "main" -}}
+{{ $total := .Site.Data.boston_license.records | len }}
+{{ $unrestricted := 0 }}
 {{ $count := 0 }}
 {{ $restrict_2006 := 0 }}
 {{ $zipmap := newScratch }}
@@ -14,12 +16,30 @@
   {{ $restrict_2006 = add $restrict_2006 1 }}
   {{ $restrictzip.Add (index . 22) 1 }}
 {{ end }}
-
 {{ end }}
-
-<p>There are currently {{ .Site.Data.boston_license.records | len }} licenses.</p>
+{{ $unrestricted = sub $total (add $restrict_2006 $count) }}
+<p>There are currently {{ $total }} licenses.</p>
 <p>{{ $count }} are "Neighborhood Restricted"</p>
 <p>{{ $restrict_2006 }} are "Older Restricted"</p>
+<p>{{ $unrestricted }} unrestricted </p>
+
+<div style="position: relative; height: 40vh; width:80vh;">
+  <canvas id="piechart"></canvas>
+</div>
+
+<script>
+  window.onload = () => {
+    const data = {
+      labels: ['Unrestricted', 'Restricted-2006', 'Restricted-2014'],
+      datasets: [{
+        data: [{{ $unrestricted}},{{$restrict_2006}},{{$count}}],
+      }]
+    };
+    const config = { type: 'pie', data: data, };
+    const ctx = document.getElementById('piechart');
+    new Chart(ctx, config);
+  }
+</script>
 
 <h1>2014 Restricted Zipcodes {{ $count }}</h1>
 These are the zipcodes some of the liquor licenses are restricted to:
