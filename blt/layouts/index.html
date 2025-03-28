@@ -35,9 +35,10 @@ These are the zipcodes some of the liquor licenses are restricted to:
 <h2>2006 Restrict. (non-transferrable) {{ $restrict_2006 }}</h2>
 <ul>
   {{ range $k, $v := $restrictzip.Values }}
-  <li>{{ $k }} licenses: {{ $v }}</li>
+  <li>{{ $k }} licenses: {{ $v }} {{ if not (collections.In $zips $k) }}*{{end }}</li>
   {{ end }}
 </ul>
+<p>* Not in the S.2903 13 restricted zipcodes</p>
 
 
 
