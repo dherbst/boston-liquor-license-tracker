@@ -1,32 +1,61 @@
 {{- define "main" -}}
 {{ $count := 0 }}
+{{ $restrict_2006 := 0 }}
 {{ $zipmap := newScratch }}
+{{ $restrictzip := newScratch }}
+
 {{ range .Site.Data.boston_license.records }}
 {{ if strings.Contains (index . 4) "Neighborhood Restricted" }}
-{{ $count = add $count 1 }}
-{{ $zipmap.Add (index . 22) 1 }}
+  {{ $count = add $count 1 }}
+  {{ $zipmap.Add (index . 22) 1 }}
 {{ end }}
+
+{{ if strings.Contains (index . 4) " Restrict." }}
+  {{ $restrict_2006 = add $restrict_2006 1 }}
+  {{ $restrictzip.Add (index . 22) 1 }}
+{{ end }}
+
 {{ end }}
 
 <p>There are currently {{ .Site.Data.boston_license.records | len }} licenses.</p>
 <p>{{ $count }} are "Neighborhood Restricted"</p>
+<p>{{ $restrict_2006 }} are "Older Restricted"</p>
 
-<h1>Restricted Zipcodes</h1>
+<h1>2014 Restricted Zipcodes {{ $count }}</h1>
 These are the zipcodes some of the liquor licenses are restricted to:
 
 <ul>
-  {{ range .Site.Data.restricted_zips }}
-  <li>{{ . }} licenses: {{ $zipmap.Get . | default 0}}</li>
+  {{ $zips := .Site.Data.restricted_zips }}
+  {{ range $k, $v := $zipmap.Values }}
+    <li>{{ $k }} licenses: {{ $v | default 0 }} {{ if not (collections.In $zips $k) }}*{{end }}</li>
+  {{ end }}
+</ul>
+<p>* Not in the S.2903 13 restricted zipcodes</p>
+
+<h2>2006 Restrict. (non-transferrable) {{ $restrict_2006 }}</h2>
+<ul>
+  {{ range $k, $v := $restrictzip.Values }}
+  <li>{{ $k }} licenses: {{ $v }}</li>
   {{ end }}
 </ul>
 
 
-<h2>Neighbor restricted licenses {{ $count }}</h2>
+
+
+<h2>2014 Neighborhood restricted licenses {{ $count }}</h2>
 {{ range .Site.Data.boston_license.records }}
-{{ if strings.Contains (index . 4) "Neighborhood Restricted" }}
-<p>{{ index . 1 }} {{ index . 7 }}  {{ index . 8 }} {{ index . 4 }} {{ index . 22 }} </p>
+  {{ if strings.Contains (index . 4) "Neighborhood Restricted" }}
+    <p>{{ index . 1 }} {{ index . 7 }}  {{ index . 8 }} {{ index . 4 }} {{ index . 22 }} </p>
+  {{ end }}
 {{ end }}
+
+<h2>2006 Restricted licenses {{ $restrict_2006 }}</h2>
+{{ range .Site.Data.boston_license.records }}
+  {{ if strings.Contains (index . 4) " Restrict." }}
+    <p>{{ index . 1 }} {{ index . 7 }}  {{ index . 8 }} {{ index . 4 }} {{ index . 22 }} </p>
+  {{ end }}
 {{ end }}
+
 
 {{ .Content }}
 
