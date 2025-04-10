@@ -1,0 +1,64 @@
+    <style>
+        #boston-map {
+            width: 100%; /* Make SVG responsive */
+            height: auto; /* Maintain aspect ratio */
+            max-width: 800px; /* Limit maximum width */
+            margin: 20px auto; /* Center the map */
+            /* border: 1px solid #ccc; */
+            display: block; /* Removes extra space below SVG in some browsers */
+        }
+
+        .restricted {
+            fill: #a0ffa0 !important;
+        }
+
+
+        .zip-area {
+            fill: #f0f0f0;
+            stroke: #333;
+            stroke-width: 1;
+            cursor: pointer;
+            outline: none; /* Remove default outline */
+        }
+
+        .restricted:hover, .restricted:focus {
+            fill: #a9ff56 !important;
+            stroke: #222;
+        }
+
+        .zip-area:hover, .zip-area:focus {
+            fill: #b0e0e6; /* Light blue on hover/focus */
+            stroke: #222;  /* Darker stroke */
+        }
+
+        .zip-label {
+            font-size: 12px;
+            text-anchor: middle;
+            dominant-baseline: middle;
+            fill: #555;
+            pointer-events: none; /* Prevent labels from interfering with clicks */
+        }
+        .hide-zip-label {
+            display: none;
+            font-size: 12px;
+            text-anchor: middle;
+            dominant-baseline: middle;
+            fill: #555;
+            pointer-events: none; /* Prevent labels from interfering with clicks */
+        }
+
+        /* Optional: Style for the tooltip/info box */
+        #zip-info {
+            color: #000;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: white;
+            border: 1px solid #333;
+            padding: 10px;
+            display: none;
+            z-index: 10;
+            font-size: 14px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        }
+    </style>
