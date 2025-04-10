@@ -154,7 +154,8 @@
 
         zipAreas.forEach(area => {
             area.addEventListener('click', function(event) {
-                const zipCode = this.getAttribute('data-zip');
+              const zipCode = this.getAttribute('data-zip');
+              console.log('zipCode=' + zipCode);
                 clickedZipSpan.textContent = zipCode;
 
                 // Position the info box.  Adjust as needed.
@@ -186,6 +187,7 @@
             });
             area.addEventListener('focus', function(event){
                  const zipCode = this.getAttribute('data-zip');
+              console.log('zipCode=' + zipCode);
                 clickedZipSpan.textContent = zipCode;
 
                 // Position the info box.  This is a simplified position for keyboard focus.
