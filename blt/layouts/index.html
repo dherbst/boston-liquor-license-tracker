@@ -178,7 +178,7 @@
                 zipInfoBox.style.left = finalX  + 'px';
                 zipInfoBox.style.top = finalY + 'px';
               //zipInfoBox.style.display = 'block';
-              highlight(zipCode);
+              highlight('' + zipCode);
             });
 
             area.addEventListener('mouseleave', function() {
@@ -195,7 +195,7 @@
                 zipInfoBox.style.left = x + 'px';
                 zipInfoBox.style.top = y + 'px';
               //zipInfoBox.style.display = 'block';
-              highlight(zipCode);
+              highlight('' + zipCode);
 
             });
         });
