@@ -155,7 +155,7 @@
         zipAreas.forEach(area => {
             area.addEventListener('click', function(event) {
               const zipCode = this.getAttribute('data-zip');
-              console.log('zipCode=' + zipCode);
+              console.log('zipCode=', zipCode);
                 clickedZipSpan.textContent = zipCode;
 
                 // Position the info box.  Adjust as needed.
@@ -179,7 +179,7 @@
                 zipInfoBox.style.left = finalX  + 'px';
                 zipInfoBox.style.top = finalY + 'px';
               //zipInfoBox.style.display = 'block';
-              highlight('' + zipCode);
+              highlight(zipCode);
             });
 
             area.addEventListener('mouseleave', function() {
@@ -187,7 +187,7 @@
             });
             area.addEventListener('focus', function(event){
                  const zipCode = this.getAttribute('data-zip');
-              console.log('zipCode=' + zipCode);
+              console.log('zipCode=', zipCode);
                 clickedZipSpan.textContent = zipCode;
 
                 // Position the info box.  This is a simplified position for keyboard focus.
@@ -197,7 +197,7 @@
                 zipInfoBox.style.left = x + 'px';
                 zipInfoBox.style.top = y + 'px';
               //zipInfoBox.style.display = 'block';
-              highlight('' + zipCode);
+              highlight(zipCode);
 
             });
         });
